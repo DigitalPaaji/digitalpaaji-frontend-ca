@@ -4,6 +4,9 @@ import About from '../components/About';
 import Plan from '../components/Plan';
 import ServiceSection from "../components/Services";
 import Tools from "../components/Tools";
+import MatterJS from "../components/MatterJS";
+import OurClients from "../components/OurClients";
+import ContactUs from "../components/ContactUs";
 
 export default function Home() {
   return (
@@ -16,6 +19,17 @@ export default function Home() {
       <Plan/>
 
       <Tools/>
+      {/* <MatterJS /> */}
+
+<OurClients />
+
+
+
+
+<div className="h-screen">
+
+</div>
+
 
     </main>
   );
