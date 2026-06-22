@@ -32,7 +32,7 @@ const Navbar = () => {
       `}</style>
 
       {/* Fixed Wrapper to keep it sticky at the top */}
-      <div className="fixed top-6 left-0 w-full flex justify-center h-[80px] z-50 ">
+      <div className="absolute top-6 left-0 w-full flex justify-center h-[80px] z-50 ">
         
         {/* Main Navbar Container */}
         <nav className="px-5 mx-4 md:mx-12 lg:mx-24 xl:mx-40 bg-[#2a2a2a]/95 backdrop-blur-md border border-gray-700/50 rounded-2xl py-4 flex items-center justify-between w-full shadow-2xl relative">

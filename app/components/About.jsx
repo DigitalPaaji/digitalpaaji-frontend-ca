@@ -23,14 +23,13 @@ if (typeof window !== "undefined") {
 }
 
 const AtmosLandingPage = () => {
-  // Existing state from your code
   const [scrollDir, setScrollDir] = useState("up");
 
-  // Ref for the text we want to animate
-  const textContainerRef = useRef(null);
+  // Refs for the new scroll animation
+  const gridRef = useRef(null);
+  const boxesRef = useRef([]);
 
   useEffect(() => {
-    // Original scroll direction logic
     let lastScrollY = window.scrollY;
     let ticking = false;
 
@@ -54,38 +53,34 @@ const AtmosLandingPage = () => {
 
     window.addEventListener("scroll", onScroll);
 
-    // --- GSAP Text Reveal Animation ---
+    // --- GSAP Box Slide Animation ---
     let ctx = gsap.context(() => {
-      // Grab all the individual word spans
-      const words = textContainerRef.current.querySelectorAll('.reveal-word');
-      
-      gsap.fromTo(
-        words,
-        { 
-          color: "#9ca3af", // Starts as a light/medium gray (Tailwind gray-400) so it's dimmed on white
-        }, 
-        {
-          color: "#000000", // Animates to pure black for maximum contrast
-          stagger: 0.1,     // One-by-one staggered effect
-          scrollTrigger: {
-            trigger: textContainerRef.current,
-            start: "top 85%",  // Starts when the top of the text hits 85% of viewport
-            end: "bottom 60%", // Ends when the bottom of the text hits 60% of viewport
-            scrub: 1,          // Smoothly ties it to the scrollbar (scrubs back to light gray on scroll up)
-          }
-        }
-      );
-    }, textContainerRef);
+      // Ensure we only animate elements that actually exist
+      const targets = boxesRef.current.filter(Boolean);
+
+      gsap.from(targets, {
+        // If index is even (0, 2), start 150px to the left (-150).
+        // If index is odd (1), start 150px to the right (150).
+        x: (i) => (i % 2 === 0 ? -150 : 150),
+        opacity: 0,
+        duration: 1.2,
+        stagger: 0.15, // Slight delay between each box starting
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: "top 85%", // Triggers when top of grid hits 85% of viewport
+          end: "bottom 15%", // Triggers leave action when bottom of grid hits 15% of viewport
+          // Play on enter, reverse on leave, play on enter back, reverse on leave back
+          toggleActions: "play reverse play reverse", 
+        },
+      });
+    }, gridRef);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       ctx.revert(); // Cleanup GSAP on unmount
     };
   }, []);
-
-  // Text to be split and animated
-  const highlightText = "We know what's going on. You need top-notch design to stand out in the tech world, but hiring in-house designers can be costly and time-consuming. That's where Atmos comes in.";
-  const words = highlightText.split(" ");
 
   return (
     <div className="relative overflow-hidden selection:bg-[#e4ded986] selection:text-black mx-4 md:mx-12 lg:mx-24 xl:mx-40 py-24">
@@ -105,11 +100,13 @@ const AtmosLandingPage = () => {
         {/* Section 1: Kept Exactly As Is */}
         <div className="w-full">
           <div className="text-center mb-16">
-             <p className="text-xs font-bold text-[#f0730d] tracking-widest uppercase mb-3">★ How it works</p>
-             <h2 className="cinzel-decorative-regular text-3xl md:text-4xl xl:text-4xl font-extrabold text-gray-900 text-center tracking-tight leading-[1.1] ">We mind your business <br/> so you can focus on running it.</h2>
+             <p className="font-bold text-[#f0730d] tracking-widest uppercase mb-3">★ How it works</p>
+             <h2 className=" text-3xl md:text-4xl xl:text-5xl font-semibold text-gray-900 text-center tracking-tight leading-[1.1] ">We mind your <span className="cinzel-decorative-regular">
+           business   </span>  <br/> so you can focus on running it.</h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Attach gridRef here to act as the scroll trigger parent */}
+          <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 overflow-hidden py-4">
             {[
               {
                 image: "/1.webp",
@@ -129,6 +126,10 @@ const AtmosLandingPage = () => {
             ].map((step, i) => (
               <div
                 key={i}
+                // Push each box element into the boxesRef array
+                ref={(el) => {
+                  boxesRef.current[i] = el;
+                }}
                 className="bg-[#2a2a2a] border border-gray-800/60 rounded-3xl overflow-hidden"
               >
                 {/* Full Width Image */}
@@ -153,21 +154,6 @@ const AtmosLandingPage = () => {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* --- Highlight Card (Section 2 - Animated) --- */}
-        <div className="mt-32 w-full text-gray-800/60 text-center relative overflow-hidden">
-<h2 
-            ref={textContainerRef}
-            className="cinzel-decorative-regular max-w-5xl text-2xl md:text-5xl font-medium leading-relaxed  mx-auto flex flex-wrap justify-center gap-x-[0.35rem]"
-          >
-            {/* Map through the words array to render them individually */}
-            {words.map((word, index) => (
-              <span key={index} className="reveal-word">
-                {word}
-              </span>
-            ))}
-          </h2>
         </div>
 
       </div>

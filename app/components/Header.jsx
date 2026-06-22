@@ -71,8 +71,18 @@ const HeroBanner = () => {
           </div>
 
           {/* Hero Headlines */}
-          <h1 className="cinzel-decorative-regular text-4xl md:text-5xl xl:text-7xl font-extrabold text-gray-900 text-center tracking-tight leading-[1.1] max-w-4xl">
-            Helping Brands Grow <br className="hidden md:block" />
+          <h1 className=" text-4xl md:text-5xl xl:text-7xl font-bold  text-gray-900 text-center tracking-tight leading-[1.1] max-w-4xl">
+             Helping Brands 
+            <br className=" block md:hidden" />
+             
+         {" "}    <span className="relative text-[#f0730d] cinzel-decorative-regular">
+            Grow 
+            {/* <img src="/circle.gif" className="grayscale-100 h-full left-0 absolute top-0" alt="" /> */}
+            </span>
+             <br className=" block md:hidden" />
+            {" "}
+
+            <br className="hidden md:block" />
             Smarter Online
           </h1>
           <p className="mt-6 text-md text-gray-500 px-4 xl:px-0 text-center max-w-2xl mx-auto leading-relaxed">

@@ -1,9 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
 
 @import "tailwindcss";
 
 .cinzel-decorative-regular {
+  /* font-family: "Cinzel Decorative", serif; */
+  font-family: "Caveat", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.cinzel-decorative {
   font-family: "Cinzel Decorative", serif;
+  /* font-family: "Caveat", cursive; */
   font-weight: 400;
   font-style: normal;
 }

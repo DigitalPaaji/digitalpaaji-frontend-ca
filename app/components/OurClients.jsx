@@ -9,24 +9,29 @@ import ContactUs from "./ContactUs";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const OurClients = () => {
-  const clients = [
-    "saajriwaaj.webp",
-    "prodsol.png",
-    "fleetx.webp",
-    "begums.png",
-    "cogan.webp",
-  ];
+const clients = [
 
+  "begums.png",
+  "born16.webp",
+ 
+  "ellementco.webp",
+
+  "neemli.webp",
+  "nourish.webp",
+ 
+ 
+  "secretalchemist.webp",
+  "softbird.png",
+  "wildwolf.webp",
+];
   const sectionRef = useRef(null);
   const cardRef = useRef(null);
   const titleRef = useRef(null);
   const textRef = useRef(null);
   const contactRef = useRef(null);
-  const logoRefs = useRef([]);
 
   useGSAP(
     () => {
-      const logos = logoRefs.current.filter(Boolean);
 
       gsap.set(cardRef.current, {
         xPercent: 120,
@@ -44,7 +49,7 @@ const OurClients = () => {
         filter: "blur(12px)",
       });
 
-      gsap.set([titleRef.current, textRef.current, ...logos], {
+      gsap.set([titleRef.current, textRef.current, ], {
         opacity: 0,
         y: 45,
         filter: "blur(10px)",
@@ -93,18 +98,7 @@ const OurClients = () => {
           },
           "-=0.45"
         )
-        .to(
-          logos,
-          {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            stagger: 0.08,
-            ease: "power3.out",
-            duration: 0.8,
-          },
-          "-=0.35"
-        )
+        
 
         // small hold
         .to({}, { duration: 0.45 })
@@ -155,7 +149,7 @@ const OurClients = () => {
         {/* Clients Card */}
         <div
           ref={cardRef}
-          className="absolute w-full max-w-7xl overflow-hidden rounded-[2rem] border border-white/20 bg-[#E2B962] px-5 py-10 text-black shadow-[0_45px_160px_rgba(226,185,98,0.25)] sm:rounded-[2.5rem] sm:px-10 sm:py-12 lg:px-16"
+          className="absolute w-full container overflow-hidden rounded-[2rem] border border-white/20 bg-[#e0a328c5] px-5 py-10 text-black shadow-[0_45px_160px_rgba(226,185,98,0.25)] sm:rounded-[2.5rem] sm:px-10 sm:py-12 lg:px-16"
         >
           {/* Card Glow */}
           <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/35 blur-[90px]" />
@@ -171,35 +165,39 @@ const OurClients = () => {
 
                 <h2
                   ref={titleRef}
-                  className="max-w-4xl text-5xl font-black uppercase leading-[0.88] tracking-tight sm:text-7xl lg:text-8xl"
+                  className="max-w-4xl text-4xl font- uppercase leading-[0.88] tracking-tight sm:text-7xl lg:text-6xl"
                 >
-                  Our Clients
+                  Our <span className="cinzel-decorative-regular">
+                    Clients
+
+                    </span>
                 </h2>
               </div>
 
               <p
                 ref={textRef}
-                className="max-w-md text-sm font-semibold leading-7 text-black/55 sm:text-base"
+                className="max-w-md font-semibold leading-7 text-black/55 sm:text-base"
               >
                 We build premium websites, dashboards and digital products for
+                modern brands, startups and growing businesses.
+                  We build premium websites, dashboards and digital products for
                 modern brands, startups and growing businesses.
               </p>
             </div>
 
             {/* Logos */}
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+            <div className="flex items-center justify-center flex-wrap max-w-5xl mx-auto gap-4">
               {clients.map((img, index) => (
                 <div
                   key={img}
-                  ref={(el) => {
-                    logoRefs.current[index] = el;
-                  }}
-                  className="group flex h-32 items-center justify-center rounded-[1.6rem] border border-black/10 bg-white/35 p-5 shadow-[0_20px_70px_rgba(0,0,0,0.08)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:rotate-1 hover:bg-white/70 hover:shadow-[0_35px_90px_rgba(0,0,0,0.18)] sm:h-36 sm:rounded-[2rem] sm:p-6"
+                 
+
+                  className="group flex items-center justify-center  rounded-[1.6rem] l transition-all duration-500 hover:-translate-y-2 hover:rotate-1  sm:h-36 sm:rounded-[2rem] sm:p-6"
                 >
                   <img
                     src={`/logo/${img}`}
                     alt="Client logo"
-                    className="max-h-20 max-w-full object-contain grayscale transition-all duration-500 group-hover:scale-110 group-hover:grayscale-0"
+                    className="max-h-12  overflow-hidden object-contain grayscale"
                   />
                 </div>
               ))}
@@ -217,11 +215,11 @@ const OurClients = () => {
                 </span>
 
                 <span className="rounded-full border border-black/10 bg-white/40 px-5 py-2 text-xs font-bold uppercase tracking-widest text-black/65">
-                  Apps
+                  SEO
                 </span>
 
                 <span className="rounded-full border border-black/10 bg-white/40 px-5 py-2 text-xs font-bold uppercase tracking-widest text-black/65">
-                  Dashboards
+                  Digital Marketing
                 </span>
               </div>
             </div>
